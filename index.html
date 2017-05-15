@@ -1,0 +1,149 @@
+<html lang="es"><head>
+        <meta charset="utf-8">
+        <title>LINK GENERATOR | CUBEX TECHNOLOGIES</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/metisMenu.min.css" rel="stylesheet">
+        <link href="assets/css/icons.css" rel="stylesheet">
+
+        <link href="assets/css/style.css" rel="stylesheet">
+
+    </head>
+
+
+    <body>
+
+        <div id="page-wrapper">
+            <div class="topbar">
+
+              
+                <div class="navbar navbar-default" role="navigation">
+                    
+                </div> 
+            </div>
+
+            <div class="page-contentbar">
+                
+                
+                    <div class="container" style="padding: 20px">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="m-b-20 header-title">Link generator</h4>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" role="form">
+                                            
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label" for="example-email">URL</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="url" class="form-control" placeholder="Full URL of the site where you want to get the source code" autofocus>
+
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Pattern</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="patron" class="form-control" placeholder="Indicate the pattern of the links">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Links obtained</label>
+
+                                                <div class="col-md-10">
+                                                    <div id="enlaces" style="height: 500px; overflow-y: scroll; margin-top: 8px">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"></label>
+
+                                                <div class="col-md-10">
+                                                    <button type="button" id="copy-button" data-clipboard-target="#enlaces" class="btn btn-primary">Copy to clipboard</button>
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+
+                                    
+
+                                </div>
+
+
+                            </div> 
+                        </div> 
+
+                        <div class="row text-right">
+                            <div class="col-md-12">
+                                <strong>Developed by David Romero</strong> - Copyright © 2017
+                            </div>
+                                
+                        </div>
+                    </div>
+                   
+
+                    
+
+               
+                
+
+            </div>
+            
+        </div>
+
+
+        <script src="assets/js/jquery-2.1.4.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/metisMenu.min.js"></script>
+        <script src="assets/js/jquery.slimscroll.min.js"></script>
+
+        <!-- App Js -->
+        <script src="assets/js/jquery.app.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+
+    
+    </body>
+
+    <script type="text/javascript">
+
+        function procesar(){
+            $.ajax({
+                url: 'generador.php',
+                type: 'POST',
+                data: {
+                    url : $("#url").val(),
+                    patron: $("#patron").val()
+                },
+                success: function(res){
+                    //console.log(typeof(res));
+                    $("#enlaces").html(res);
+                }
+            });
+        }
+
+        $("#url").on("change keyup paste", function(){
+            procesar();
+        });
+
+        $("#patron").on("change keyup paste", function(){
+            procesar();
+        });
+
+        (function(){
+            new Clipboard('#copy-button');
+        })();
+
+    </script>
+
+</html>
